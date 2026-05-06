@@ -1,0 +1,15 @@
+{
+  "start.welcome": "Hello! 🌸\n\n«Himoya» is the official bot of Termez Branch of Tashkent State Medical University, designed to protect students' and staff's rights and prevent harassment, pressure and violence.\n\n📜 Based on: Order No. 150 of the Ministry of Higher Education, Science and Innovation of Uzbekistan, dated April 20, 2026.\n\nHere you can:\n• 🔒 Submit an anonymous report\n• 📋 Check report status\n• 📞 Get hotline contacts\n• 📖 Learn about your rights",
+  "menu.report": "🆘 Anonymous report",
+  "menu.status": "📋 Check status",
+  "menu.faq": "📖 Rights & FAQ",
+  "menu.contacts": "📞 Hotlines",
+  "menu.language": "🌐 Change language",
+  "menu.cancel": "❌ Cancel",
+  "menu.back": "⬅️ Back",
+  "menu.skip": "⏭️ Skip",
+  "menu.done": "✅ Done",
+  "lang.set": "✅ Language changed to English.",
+  "common.error": "❌ An error occurred. Please try again.",
+  "common.cancelled": "Cancelled."
+}

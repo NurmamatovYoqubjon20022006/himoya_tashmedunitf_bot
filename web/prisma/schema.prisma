@@ -1,0 +1,133 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// DB da UPPERCASE ENUM qiymatlari
+enum UserRole {
+  USER
+  PSYCHOLOGIST
+  LEGAL
+  COMMISSION
+  ADMIN
+}
+
+enum ReportStatus {
+  NEW
+  IN_REVIEW
+  RESOLVED
+  REJECTED
+}
+
+enum IncidentType {
+  HARASSMENT
+  PRESSURE
+  VIOLENCE
+  DISCRIMINATION
+  OTHER
+}
+
+enum UserType {
+  STUDENT
+  MASTER
+  TEACHER
+  STAFF
+  OTHER
+}
+
+enum Faculty {
+  DAVOLASH_1
+  DAVOLASH_2
+  PEDIATRIYA
+  XALQARO
+}
+
+model User {
+  id            Int        @id @default(autoincrement())
+  telegram_id   BigInt     @unique
+  username      String?    @db.VarChar(64)
+  language      String     @default("uz") @db.VarChar(2)
+  role          UserRole   @default(USER)
+
+  // Registratsiya
+  phone         String?    @unique @db.VarChar(20)
+  full_name     String?    @db.VarChar(255)
+  user_type     UserType?
+  faculty       Faculty?
+  course        Int?
+  direction     String?    @db.VarChar(255)
+  group_name    String?    @db.VarChar(64)
+  position      String?    @db.VarChar(255)
+  is_registered Boolean    @default(false)
+  registered_at DateTime?  @db.Timestamptz
+
+  is_blocked    Boolean    @default(false)
+  created_at    DateTime   @default(now()) @db.Timestamptz
+
+  reports       Report[]
+
+  @@map("users")
+}
+
+model Report {
+  id             Int          @id @default(autoincrement())
+  tracking_id    String       @unique @db.VarChar(12)
+  user_id        Int?
+  incident_type  IncidentType
+  description    String
+  location       String?      @db.VarChar(255)
+  incident_date  String?      @db.VarChar(64)
+  status         ReportStatus @default(NEW)
+  admin_note     String?
+  is_anonymous   Boolean      @default(true)
+  created_at     DateTime     @default(now()) @db.Timestamptz
+  updated_at     DateTime     @default(now()) @db.Timestamptz
+
+  user           User?        @relation(fields: [user_id], references: [id])
+  attachments    Attachment[]
+
+  @@map("reports")
+}
+
+model Attachment {
+  id          Int      @id @default(autoincrement())
+  report_id   Int
+  file_id     String   @db.VarChar(255)
+  file_type   String   @db.VarChar(32)
+  created_at  DateTime @default(now()) @db.Timestamptz
+
+  report      Report   @relation(fields: [report_id], references: [id], onDelete: Cascade)
+
+  @@map("attachments")
+}
+
+// admin_users.role VARCHAR — Prisma ENUM ishlatmaydi
+model AdminUser {
+  id            Int       @id @default(autoincrement())
+  username      String    @unique @db.VarChar(64)
+  password_hash String    @db.VarChar(255)
+  full_name     String    @db.VarChar(128)
+  role          String    @default("admin") @db.VarChar(32)
+  is_active     Boolean   @default(true)
+  last_login    DateTime? @db.Timestamptz
+  created_at    DateTime  @default(now()) @db.Timestamptz
+
+  sessions      AdminSession[]
+
+  @@map("admin_users")
+}
+
+model AdminSession {
+  id         String    @id @default(cuid())
+  admin_id   Int
+  expires_at DateTime  @db.Timestamptz
+  created_at DateTime  @default(now()) @db.Timestamptz
+
+  admin      AdminUser @relation(fields: [admin_id], references: [id], onDelete: Cascade)
+
+  @@map("admin_sessions")
+}
