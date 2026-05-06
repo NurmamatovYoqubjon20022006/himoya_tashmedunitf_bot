@@ -31,6 +31,9 @@ data/*.db
 data/*.db-journal
 data/*.sqlite*
 data/uploads/
+data/backups/
+*.dump
+*.sql.gz
 
 # Logs
 logs/*.log
