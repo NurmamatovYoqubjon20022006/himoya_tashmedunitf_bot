@@ -1,4 +1,4 @@
-"""Murojaat yuborish — 3 bosqichli oqim (progress + back tugmasi)."""
+"""Murojaat yuborish — 3 bosqichli oqim (turi → tafsilot → tasdiqlash)."""
 from __future__ import annotations
 
 from aiogram import Bot, F, Router
@@ -26,7 +26,6 @@ REPORT_TRIGGERS = {
     "📝 Murojaat yuborish",
     "📝 Отправить обращение",
     "📝 Submit report",
-    # eski tugmalar bilan ham ishlasin (back-compat)
     "🆘 Anonim murojaat yuborish",
     "🆘 Анонимное обращение",
     "🆘 Anonymous report",
@@ -70,7 +69,6 @@ async def on_incident_type(
 ) -> None:
     user = await get_or_create_user(session, call.from_user.id)
     incident = call.data.split(":", 1)[1]
-    incident_label = t(f"report.type.{incident}", user.language)
 
     await state.update_data(incident_type=incident)
     await call.message.edit_reply_markup(reply_markup=None)
@@ -103,15 +101,12 @@ async def on_description(
         return
 
     if message.text in BACK_TEXTS:
-        # ⬅️ Orqaga: 1-bosqichga
         await _show_step_1(message, state, user.language, user.full_name or "")
         return
 
     text = message.text.strip()
-    if len(text) < 20:
-        await message.answer(
-            t("report.too_short", user.language, count=len(text))
-        )
+    if not text:
+        await message.answer(t("report.too_short", user.language, count=0))
         return
 
     await state.update_data(description=text)

@@ -19,10 +19,7 @@ def main_menu(lang: str = "uz") -> ReplyKeyboardMarkup:
                 KeyboardButton(text=t("menu.my_reports", lang)),
                 KeyboardButton(text=t("menu.profile", lang)),
             ],
-            [
-                KeyboardButton(text=t("menu.faq", lang)),
-                KeyboardButton(text=t("menu.contacts", lang)),
-            ],
+            [KeyboardButton(text=t("menu.faq", lang))],
             [KeyboardButton(text=t("menu.language", lang))],
         ],
         resize_keyboard=True,

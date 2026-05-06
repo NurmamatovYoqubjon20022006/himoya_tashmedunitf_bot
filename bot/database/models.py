@@ -136,7 +136,10 @@ class Attachment(Base):
 
 
 class AdminUser(Base):
-    """Web admin panel foydalanuvchilari (Telegram'dan alohida)."""
+    """Web admin panel foydalanuvchilari (Telegram'dan alohida).
+
+    Role — VARCHAR (Prisma bilan mos): 'admin' | 'commission' | 'psychologist' | 'legal'.
+    """
 
     __tablename__ = "admin_users"
 
@@ -144,7 +147,7 @@ class AdminUser(Base):
     username: Mapped[str] = mapped_column(String(64), unique=True, index=True)
     password_hash: Mapped[str] = mapped_column(String(255))
     full_name: Mapped[str] = mapped_column(String(128))
-    role: Mapped[UserRole] = mapped_column(Enum(UserRole, name="UserRole"), default=UserRole.COMMISSION)
+    role: Mapped[str] = mapped_column(String(32), default="commission")
     is_active: Mapped[bool] = mapped_column(default=True)
     last_login: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     created_at: Mapped[datetime] = mapped_column(
