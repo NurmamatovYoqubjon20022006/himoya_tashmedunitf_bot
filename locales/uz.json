@@ -1,5 +1,5 @@
 {
-  "start.welcome": "Assalomu alaykum! 🌸\n\n«Himoya» — Toshkent davlat tibbiyot universiteti Termiz filialining talabalari va xodimlari huquqlarini himoya qilish hamda shilqimlik (harassment), tazyiq va zo'ravonlik holatlarining oldini olish uchun yaratilgan rasmiy bot.\n\n📜 Asos: O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligining 2026-yil 20-apreldagi 150-sonli buyrug'i.\n\n🏥 <b>TDTU Termiz filiali</b>\n\n👇 Quyidagi tugmalardan birini tanlang:",
+  "start.welcome": "Assalomu alaykum! 🌸\n\n«Himoya» — Toshkent davlat tibbiyot universiteti Termiz filialining <b>talaba qizlari va ayol xodimlari</b> huquqlarini himoya qilish hamda shilqimlik (harassment), tazyiq va zo'ravonlik holatlarining oldini olish uchun yaratilgan rasmiy bot.\n\n📜 Asos: O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligining 2026-yil 20-apreldagi 150-sonli buyrug'i.\n\n🏥 <b>TDTU Termiz filiali</b>\n\n👇 Quyidagi tugmalardan birini tanlang:",
   "start.need_register": "👋 Botdan to'liq foydalanish uchun avval ro'yxatdan o'tishingiz kerak.\n\nBu jarayon atigi 1-2 daqiqa vaqt oladi. Sizning ma'lumotlaringiz <b>maxfiy saqlanadi</b> va faqat komissiya a'zolari ko'ra oladi.",
   "start.welcome_back": "Xush kelibsiz, <b>{name}</b>! 🌸\n\nBugun sizga qanday yordam bera olamiz?",
 
@@ -24,6 +24,7 @@
   "reg.phone_taken": "❗ Bu telefon raqami allaqachon ro'yxatdan o'tgan.\n\nAgar bu sizning raqamingiz bo'lsa, eski hisobingizdan foydalaning yoki adminga murojaat qiling.",
   "reg.ask_full_name": "✅ Telefon qabul qilindi: <code>{phone}</code>\n\n2-qadam: <b>To'liq ism familiyangizni</b> yozing.\n\nMasalan: <i>Yusupova Malika Akmalovna</i>",
   "reg.name_too_short": "❗ Ism kamida 5 ta belgi bo'lishi kerak. Iltimos, to'liq ism familiyangizni yozing.",
+  "reg.name_invalid": "❗ <b>To'liq F.I.O ni kiriting</b> (3 ta bo'lak):\n\n<b>Familiya · Ism · Otasining ismi</b>\n\nMasalan: <i>Yusupova Malika Akmalovna</i>\n\n📌 Faqat harflar — raqam, belgi yoki qisqartmalar bo'lmasin.",
   "reg.ask_user_type": "✅ Yaxshi, <b>{name}</b>!\n\n3-qadam: siz kimsiz?",
   "reg.type.student": "🎓 Talaba (Bakalavr)",
   "reg.type.master": "📚 Magistrant",

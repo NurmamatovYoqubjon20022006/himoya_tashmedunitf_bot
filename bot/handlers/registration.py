@@ -38,8 +38,25 @@ router = Router(name="registration")
 
 
 PHONE_RE = re.compile(r"^\+?\d{9,15}$")
+# F.I.O — har bir bo'lak: harflar (lotin/kirill/o'zbek), apostrof yoki defis bilan
+FIO_PART_RE = re.compile(r"^[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳ'ʻʼ\-]{2,}$")
 CANCEL_TEXTS = {"❌ Bekor qilish", "❌ Отмена", "❌ Cancel"}
 SKIP_TEXTS = {"⏭️ O'tkazib yuborish", "⏭️ Пропустить", "⏭️ Skip"}
+
+
+def _validate_fio(raw: str) -> str | None:
+    """F.I.O ni tekshirish: kamida 3 ta bo'lak, har biri faqat harflardan.
+
+    To'g'ri bo'lsa — bo'sh joylarni siqib qaytaradi (foydalanuvchi
+    yozganidek). Noto'g'ri bo'lsa — None.
+    """
+    parts = raw.split()
+    if len(parts) < 3:
+        return None
+    for p in parts:
+        if not FIO_PART_RE.match(p):
+            return None
+    return " ".join(parts)
 
 
 def _user_type_label(t_val: UserType, lang: str) -> str:
@@ -154,9 +171,11 @@ async def reg_full_name(
         await _cancel(message, state, user.language)
         return
 
-    name = message.text.strip()
-    if len(name) < 5:
-        await message.answer(t("reg.name_too_short", user.language))
+    name = _validate_fio(message.text.strip())
+    if name is None:
+        await message.answer(
+            t("reg.name_invalid", user.language), parse_mode="HTML"
+        )
         return
 
     await state.update_data(full_name=name)
